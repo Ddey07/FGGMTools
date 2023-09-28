@@ -7,7 +7,7 @@ using namespace arma;
 
 // Calculate log-likelihood
 // ======================================================================
-double llk(mat Q, mat T){
+double llk(arma::mat Q, arma::mat T){
   double trQT, logL, valQ, signQ;
   log_det(valQ,signQ,Q);
   
@@ -143,7 +143,7 @@ List clique_comppart(List U, int n){
 // IPSP2 Algorithm of Xu et al (2014)
 // ======================================================================
 // [[Rcpp::export]]
-SEXP IPS2(mat S, int n, mat T, List W, int maxit, double eps){
+SEXP IPS2(arma::mat S, int n, arma::mat T, List W, int maxit, double eps){
   List U    = clique_part(W);
   List Ubar = clique_comppart(U, n);
   
@@ -156,11 +156,11 @@ SEXP IPS2(mat S, int n, mat T, List W, int maxit, double eps){
   int nW = W.size();
   List Wi;
   int nWi, nEc;   
-  mat QM, QMbar, QMMbar, Psi, LambdaTemp, Sc, Scinv, Qca, Qaa, Qtemp, QT;
+  arma::mat QM, QMbar, QMMbar, Psi, LambdaTemp, Sc, Scinv, Qca, Qaa, Qtemp, QT;
   vec trQT;
   
-  mat Lambda(n,n);
-  mat Q(n,n); 
+  arma::mat Lambda(n,n);
+  arma::mat Q(n,n); 
   Q.eye();
   
   while (itcount<maxit){

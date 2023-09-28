@@ -5,7 +5,6 @@
 #include <Rcpp.h>
 
 using namespace Rcpp;
-using namespace arma;
 
 #ifdef RCPP_USE_GLOBAL_ROSTREAM
 Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
@@ -13,14 +12,14 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // IPS2
-SEXP IPS2(mat S, int n, mat T, List W, int maxit, double eps);
+SEXP IPS2(arma::mat S, int n, arma::mat T, List W, int maxit, double eps);
 RcppExport SEXP _FGGMTools_IPS2(SEXP SSEXP, SEXP nSEXP, SEXP TSEXP, SEXP WSEXP, SEXP maxitSEXP, SEXP epsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< mat >::type S(SSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type S(SSEXP);
     Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< mat >::type T(TSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type T(TSEXP);
     Rcpp::traits::input_parameter< List >::type W(WSEXP);
     Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
     Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
