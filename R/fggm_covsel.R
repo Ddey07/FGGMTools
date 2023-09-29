@@ -1,7 +1,7 @@
 
 #' @title Graph-constrained covariance estimation of multivariate function data 
 #'
-#' @descriptio Estimates the graph-constrained Karhunen-Loeve expansion for a partially separable multivariate Gaussian process.
+#' @description Estimates the graph-constrained Karhunen-Loeve expansion for a partially separable multivariate Gaussian process.
 #' @param y  list of length p containing densely observed multivariate (p-dimensional) functional data . \code{y[[j]]} is an nxm matrix of functional data for n subjects observed on a grid of length m
 #' @param t  (optional) grid on which functional data is observed, defaults to seq(0, 1, m) where \code{m = dim(data[[1]])[2]}
 #' @param A  An adjacency matrix corresponding to the underlyning graphical model (p by p). Must come from an undirected graph. 
@@ -22,6 +22,7 @@
 #'
 #' library(mvtnorm)
 #' library(fda)
+#' 
 #'
 #' ## Generate data y
 #'  source(system.file("exec", "getOmegaSigma.R", package = "fgm"))

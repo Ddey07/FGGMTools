@@ -18,8 +18,8 @@ pfpca_covsel(y, t = seq(0, 1, length.out = dim(y[[1]])[2]), FVE, A)
 \value{
 A list of length L (number of princtipal components explaining desired FVE), each with two variables:
 \describe{
-  \item{\code{phi}}{A row denotes the value of l-th basis function evaluated at a grid of length m}
-  \item{\code{Sigma_l}}{Estimated covariance matrix for the l-th basis coefficients under graphical constraint}
+\item{\code{phi}}{A row denotes the value of l-th basis function evaluated at a grid of length m}
+\item{\code{Sigma_l}}{Estimated covariance matrix for the l-th basis coefficients under graphical constraint}
 }
 }
 \description{
@@ -29,7 +29,7 @@ Graph-constrained covariance estimation of multivariate function data
 This code uses slightly modified functions \code{pfpca} and some helper functions from the fgm package available at: \url{https://github.com/javzapata/fgm} by Zapata, J., Oh, S., and Petersen, A.
 }
 \note{
-From the above list, the endowed covariance function can be obtained as $\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T$.
+From the above list, the endowed covariance function can be obtained as \eqn{\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T}.
 }
 \examples{
 ## Variables
