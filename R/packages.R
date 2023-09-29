@@ -7,5 +7,4 @@
 #' @import igraph
 #' @import mvtnorm
 #' @import MASS
-#' @useDynLib SGCTools, .registration=TRUE
 NULL
