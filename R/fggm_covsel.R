@@ -11,7 +11,7 @@
 #'   \item{\code{phi}}{A row denotes the value of l-th basis function evaluated at a grid of length m}
 #'   \item{\code{Sigma_l}}{Estimated covariance matrix for the l-th basis coefficients under graphical constraint}
 #' }
-#' @note From the above list, the endowed covariance function can be obtained as $\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T$. 
+#' @note From the above list, the endowed covariance function can be obtained as \eqn{\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T}. 
 #'@examples
 #' ## Variables
 #' # Omega - list of precision matrices, one per eigenfunction

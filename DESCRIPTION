@@ -7,6 +7,17 @@ Author: Who wrote it
 Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
-Imports: Rcpp (>= 1.0.11)
-LinkingTo: Rcpp, RcppArmadillo
+Imports: 
+    stats,
+    methods,
+    MASS,
+    Matrix,
+    fda,
+    fgm,
+    gRbase,
+    graph,
+    igraph,
+    mvtnorm,
+    refund
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
