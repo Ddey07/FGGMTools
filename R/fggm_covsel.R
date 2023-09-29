@@ -1,42 +1,17 @@
 
-# pfpca(data, t=seq(0, 1, m))
-#
-# Arguments
-#
-# y: list of length p containing multivariate (p-dimensional) functional data.
-# 	y[[j]] is an nxm matrix of functional data for n subjects observed on a
-# 	grid of length m
-#
-# t - grid on which functional data is observed, defaults to seq(0, 1, m)
-#        where m = dim(data[[1]])[2]
-#
-# Value
-# A list with 3 components:
-#
-# phi - Lxm matrix where each row denotes the value of a basis function evaluated
-# 	at a grid of length m
-# theta - list of length L of functional principal component scores.  theta[[l]]
-# 		is an nxp matrix of vector scores corresponding to the basis function
-# 		phi[l,]
-# FVE - fraction of variability explained by the first L components
-
-# @example
-# \describe{
-# \item pfpca.fit = pfpca(y)
-# \item pfpca.fit = pfpca(y, t=seq(0, 1, m))
-# }
-
-#' Partially Separable Karhunen-Loeve Expansion
+#' @title Graph-constrained covariance estimation of multivariate function data 
 #'
-#' Estimates the Karhunen-Loeve expansion for a partially separable multivariate Gaussian process.
+#' @descriptio Estimates the graph-constrained Karhunen-Loeve expansion for a partially separable multivariate Gaussian process.
 #' @param y  list of length p containing densely observed multivariate (p-dimensional) functional data . \code{y[[j]]} is an nxm matrix of functional data for n subjects observed on a grid of length m
 #' @param t  (optional) grid on which functional data is observed, defaults to seq(0, 1, m) where \code{m = dim(data[[1]])[2]}
-#' @return A list with three variables:
+#' @param A  An adjacency matrix corresponding to the underlyning graphical model (p by p). Must come from an undirected graph. 
+#' @param FVE Desired proportion of variance explained in the functional principal components analysis
+#' @return A list of length L (number of princtipal components explaining desired FVE), each with two variables:
 #' \describe{
-#'   \item{\code{phi}}{Lxm matrix where each row denotes the value of a basis function evaluated at a grid of length m}
-#'   \item{\code{theta}}{list of length L of functional principal component scores. \code{theta[[l]]} is an nxp matrix of vector scores corresponding to the basis function \code{phi[l,]}}
-#'   \item{\code{FVE}}{fraction of variability explained by the first L components}
+#'   \item{\code{phi}}{A row denotes the value of l-th basis function evaluated at a grid of length m}
+#'   \item{\code{Sigma_l}}{Estimated covariance matrix for the l-th basis coefficients under graphical constraint}
 #' }
+#' @note From the above list, the endowed covariance function can be obtained as $\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T$. 
 #'@examples
 #' ## Variables
 #' # Omega - list of precision matrices, one per eigenfunction
@@ -60,19 +35,38 @@
 #'  phi = t(predict(phi.basis, t))[chosen.basis,]
 #'  y = lapply(theta.reshaped, function(th) t(th)%*%phi)
 #'
-#' ## Solve
-#'  pfpca(y)
+#' # Fix an adjacency matrix for the graph between the variables
+#' A = as_adjacency_matrix(make_tree(length(y),1,"undirected"))
+#' # Get graph-constrained estimate of covariance function for the process
+#'  pf_ips = pfpca_covsel(y,A=A,FVE=0.8)
 #'
-#' @keywords pfpca fpca pca fda partial separability principal components
 #' @export
-#' @author Javier Zapata, Sang-Yun Oh and Alexander Petersen
+#' @author Debangan Dey, Sudipto Banerjee, Martin Lindquist and Abhirup Datta
+#' @references Dey D., Banerjee S., Lindquist M., and Datta A., Graph-constrained Analysis for Multivariate Functional Data. Available at arXiv.org
 #' @references Zapata, J., Oh, S., and Petersen, A. (2019) Functional Graphical Models for Partially Separable Gaussian Processes. Available at arXiv.org
 #' @details
-#' This function implements the functional graphical model in Zapata, Oh, and Petersen (2019).
-#' This code uses functions from the testing version of fdapace available at: \url{https://github.com/functionaldata/tPACE}.
+#' This code uses slightly modified functions \code{pfpca} and some helper functions from the fgm package available at: \url{https://github.com/javzapata/fgm} by Zapata, J., Oh, S., and Petersen, A.
 
 
-pfpca = function(y, t=seq(0, 1, length.out=dim(y[[1]])[2])){
+pfpca_covsel=function(y, t=seq(0, 1, length.out=dim(y[[1]])[2]), FVE ,A){
+  
+  # run pfpca 
+  pf = pfpca(y,t, FVE)
+  L = pf$L
+  phimat = pf$phi
+  psepcov = lapply(1:L,function(x){Sigma_l = cov(t(pf$theta[[x]]))
+  # stabilize condition number of sigma_l 
+  Sigma_l = as.matrix(nearPD(Sigma_l, posd.tol = 0.001)$mat)
+  Sigma_l1 = IPS(S=Sigma_l, A= A, eps = 1e-4)
+  Sigma_l1 = solve(Sigma_l1)
+  list(Sigma_l = Sigma_l1, phi = phimat[x,])
+  #kronecker(Sigma_l1, phimat[x,] %*% t(phimat[x,]))
+  })
+  return(psepcov)
+}
+
+
+pfpca = function(y, t=seq(0, 1, length.out=dim(y[[1]])[2]), FVE){
 
   # checking inputs
   if (missing(y)) stop('y is missing')
@@ -90,7 +84,7 @@ pfpca = function(y, t=seq(0, 1, length.out=dim(y[[1]])[2])){
   }
   # Add together and compute eigendecomposition
 
-  optns$FVEthreshold = 0.99
+  optns$FVEthreshold = FVE
   optns$maxK = n*p
   C = rowSums(S, dims = 2)
   E = .GetEigenAnalysisResults(C, t, optns)

@@ -1,4 +1,3 @@
-#' @importFrom Rcpp sourceCpp evalCpp
 #' @import fda
 #' @import fgm
 #' @import refund

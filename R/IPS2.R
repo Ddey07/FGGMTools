@@ -247,14 +247,3 @@ clique_select <- function(m, Clist, V, NN){
   log( m*V^3 + NN * Umstar^3 )
 }
 
-IPS <- function(S, A, eps=1e-8){
-  n <- nrow(A)
-  diag(A) <- 0
-  T <- S
-  
-  W <- clique_part(A)
-  Q <- IPS2(S=S, n=n, T=T, W=W, maxit=100, eps=eps)$Q
-  
-  return(Q)   
-}
-
