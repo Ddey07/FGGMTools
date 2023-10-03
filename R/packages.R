@@ -1,11 +1,13 @@
 #' @import fda
 #' @import fgm
 #' @import refund
-#' @import Matrix
+#' @importFrom Matrix nearPD
 #' @import graph
 #' @import gRbase
-#' @import igraph
+#' @importFrom igraph as_adjacency_matrix
+#' @importFrom igraph make_tree
 #' @import mvtnorm
 #' @import MASS
 #' @import fdapace
+#' @importFrom methods as
 NULL
