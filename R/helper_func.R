@@ -214,7 +214,8 @@ return(result)
 }
 
 clique_part <- function(A){
-  A_NELO <- as(A, "graphNEL")
+  rownames(A) <- colnames(A) <- 1:ncol(A)
+  A_NELO <- getCliques(as(A,"matrix"))
   Clist  <- getCliques(A_NELO)
   Clist  <- lapply(Clist, function(x) sort(as.numeric(x)))
   
