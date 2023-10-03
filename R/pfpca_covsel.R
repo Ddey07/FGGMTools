@@ -12,14 +12,14 @@
 #'   \item{\code{Sigma_l}}{Estimated covariance matrix for the l-th basis coefficients under graphical constraint}
 #' }
 #' @note From the above list, the endowed covariance function can be obtained as \eqn{\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T}. 
-#' @examples man/examples/pfpca_covsel_ex.R
-#' @export
 #' @author Debangan Dey, Sudipto Banerjee, Martin Lindquist and Abhirup Datta
 #' @references Dey D., Banerjee S., Lindquist M., and Datta A., Graph-constrained Analysis for Multivariate Functional Data. Available at arXiv.org
 #' @references Zapata, J., Oh, S., and Petersen, A. (2019) Functional Graphical Models for Partially Separable Gaussian Processes. Available at arXiv.org
 #' @details
 #' This code uses slightly modified functions \code{pfpca} and some helper functions from the fgm package available at: \url{https://github.com/javzapata/fgm} by Zapata, J., Oh, S., and Petersen, A.
-
+#' @export
+#' @import stats
+#' @example man/examples/pfpca_covsel_ex.R
 
 pfpca_covsel=function(y, t=seq(0, 1, length.out=dim(y[[1]])[2]), FVE ,A){
   
