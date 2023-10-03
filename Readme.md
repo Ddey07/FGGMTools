@@ -13,6 +13,14 @@ multivariate functional data. The methods are described in Dey,
 Banerjee, Lindquist and Datta (2023)
 <https://arxiv.org/pdf/2209.06294.pdf>.
 
+The code uses slightly modified functions from the testing version of
+copCS package available at
+<https://github.com/donaldmusgrove/copCS/blob/master/R/ips.R> by
+Dr. D.R. Musgrove and slightly modified functions **pfpca** and some
+helper functions from the fgm package available at:
+<https://github.com/javzapata/fgm> by Zapata, J., Oh, S., and Petersen,
+A.
+
 ## Installation
 
 ``` install
