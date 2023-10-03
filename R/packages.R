@@ -2,7 +2,6 @@
 #' @import fgm
 #' @import refund
 #' @importFrom Matrix nearPD
-#' @import graph
 #' @import gRbase
 #' @importFrom igraph as_adjacency_matrix
 #' @importFrom igraph make_tree
