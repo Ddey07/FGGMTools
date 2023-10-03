@@ -32,15 +32,15 @@ y = rmvnorm(1000, sigma=Sigma)
 S = cov(y)
 # Fix an adjacency matrix. Here we pick path graph of length p
 A = as.matrix(as_adjacency_matrix(make_tree(p,1,"undirected")))
-diag(A) = 1
 # plot the graph
-plot(A)
+plot(graph_from_adjacency_matrix(A))
 ```
 
 ![](README-example-1.png)<!-- -->
 
 ``` r
-## Solve
+# Perform IPS
+diag(A) = 1
 K = IPS(S,A)
 # Check for the non-edges if they equal to zero in precision matrix
 all(K[A==0]==0)
