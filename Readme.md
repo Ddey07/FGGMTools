@@ -27,26 +27,40 @@ A.
 devtools::install_github("DDey07/FGGMTools")
 ```
 
+## Load libraries
+
+``` r
+library(igraph)
+library(mvtnorm)
+library(FGGMTools)
+library(fda)
+```
+
 ## Example: IPS
 
 ``` r
-require(igraph)
-require(mvtnorm)
+
 # Generate data y
 p <- 10
 Q <- qr.Q(qr(matrix(rnorm(p^2), p)))
 Sigma <- crossprod(Q, Q*(5:1))
 y = rmvnorm(1000, sigma=Sigma)
 S = cov(y)
-# Fix an adjacency matrix. Here we pick path graph of length p
-A = as.matrix(as_adjacency_matrix(make_tree(p,1,"undirected")))
-# plot the graph
-plot(graph_from_adjacency_matrix(A,mode="undirected"))
+# Fix a graph, get the adjacency matrix. Here we pick path graph of length p
+gg <- c(1,2,1,3,2,3,2,4,3,4)
+x.1 <- gg
+for(i in 1:2){
+    x.1 <- x.1+rep(3,10)
+    gg <- c(gg, x.1)
+}
+G_V <- make_graph(gg, directed=FALSE)
+plot(G_V)
 ```
 
 ![](README-example-1.png)<!-- -->
 
 ``` r
+A <- as.matrix(as_adjacency_matrix(G_V))
 # Perform IPS
 diag(A) = 1
 K = IPS(S,A)
@@ -55,7 +69,7 @@ all(K[A==0]==0)
 #> [1] TRUE
 # Check if the edge-specific entries are equal to that of S
 max(abs(solve(K)[A==1]  - S[A==1]))
-#> [1] 4.440892e-16
+#> [1] 8.881784e-16
 ```
 
 ## Example: pfpca_covsel
@@ -67,11 +81,6 @@ max(abs(solve(K)[A==1]  - S[A==1]))
 # theta - list of functional  principal component scores
 # phi - list of eigenfunctions densely observed on a time grid
 # y - list containing densely observed multivariate (p-dimensional) functional data
-
-library(mvtnorm)
-library(fda)
-library(igraph)
-
 
 ## Generate data y
  source(system.file("exec", "getOmegaSigma.R", package = "fgm"))
@@ -85,8 +94,15 @@ library(igraph)
  phi = t(predict(phi.basis, t))[chosen.basis,]
  y = lapply(theta.reshaped, function(th) t(th)%*%phi)
 
-# Fix an adjacency matrix for the graph between the variables
-A = as_adjacency_matrix(make_tree(length(y),1,"undirected"))
+# Fix a graph, get the adjacency matrix. Here we pick path graph of length p
+gg <- c(1,2,1,3,2,3,2,4,3,4)
+x.1 <- gg
+for(i in 1:2){
+    x.1 <- x.1+rep(3,10)
+    gg <- c(gg, x.1)
+}
+G_V <- make_graph(gg, directed=FALSE)
+A <- as.matrix(as_adjacency_matrix(G_V))
 # Get graph-constrained estimate of covariance function for the process
 pf_ips = pfpca_covsel(y,A=A,FVE=0.8)
 ```
