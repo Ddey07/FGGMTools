@@ -2,7 +2,7 @@
 % Please edit documentation in R/pfpca_covsel.R
 \name{pfpca_covsel}
 \alias{pfpca_covsel}
-\title{Graph-constrained covariance estimation of multivariate function data}
+\title{Graph-constrained covariance estimation of multivariate functional data}
 \usage{
 pfpca_covsel(y, t = seq(0, 1, length.out = dim(y[[1]])[2]), FVE, A)
 }
@@ -13,12 +13,12 @@ pfpca_covsel(y, t = seq(0, 1, length.out = dim(y[[1]])[2]), FVE, A)
 
 \item{FVE}{Desired proportion of variance explained in the functional principal components analysis}
 
-\item{A}{An adjacency matrix corresponding to the underlyning graphical model (p by p). Must come from an undirected graph.}
+\item{A}{An adjacency matrix corresponding to the underlying graphical model (p by p). Must come from an undirected graph.}
 }
 \value{
-A list of length L (number of princtipal components explaining desired FVE), each with two variables:
+A list of length L (number of principal components explaining desired FVE), each with two variables:
 \describe{
-\item{\code{phi}}{A row denotes the value of l-th basis function evaluated at a grid of length m}
+\item{\code{phi}}{A m by 1 vector denoting the value of l-th basis function evaluated at a grid of length m}
 \item{\code{Sigma_l}}{Estimated covariance matrix for the l-th basis coefficients under graphical constraint}
 }
 }
@@ -29,7 +29,7 @@ Estimates the graph-constrained Karhunen-Loeve expansion for a partially separab
 This code uses slightly modified functions \code{pfpca} and some helper functions from the fgm package available at: \url{https://github.com/javzapata/fgm} by Zapata, J., Oh, S., and Petersen, A.
 }
 \note{
-From the above list, the endowed covariance function can be obtained as \eqn{\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T}.
+From the above list, the resulting covariance function can be obtained as \eqn{\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T}.
 }
 \examples{
 ## Variables

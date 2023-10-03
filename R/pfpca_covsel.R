@@ -1,17 +1,17 @@
 
-#' @title Graph-constrained covariance estimation of multivariate function data 
+#' @title Graph-constrained covariance estimation of multivariate functional data 
 #'
 #' @description Estimates the graph-constrained Karhunen-Loeve expansion for a partially separable multivariate Gaussian process.
 #' @param y  list of length p containing densely observed multivariate (p-dimensional) functional data . \code{y[[j]]} is an nxm matrix of functional data for n subjects observed on a grid of length m
 #' @param t  (optional) grid on which functional data is observed, defaults to seq(0, 1, m) where \code{m = dim(data[[1]])[2]}
-#' @param A  An adjacency matrix corresponding to the underlyning graphical model (p by p). Must come from an undirected graph. 
+#' @param A  An adjacency matrix corresponding to the underlying graphical model (p by p). Must come from an undirected graph. 
 #' @param FVE Desired proportion of variance explained in the functional principal components analysis
-#' @return A list of length L (number of princtipal components explaining desired FVE), each with two variables:
+#' @return A list of length L (number of principal components explaining desired FVE), each with two variables:
 #' \describe{
-#'   \item{\code{phi}}{A row denotes the value of l-th basis function evaluated at a grid of length m}
+#'   \item{\code{phi}}{A m by 1 vector denoting the value of l-th basis function evaluated at a grid of length m}
 #'   \item{\code{Sigma_l}}{Estimated covariance matrix for the l-th basis coefficients under graphical constraint}
 #' }
-#' @note From the above list, the endowed covariance function can be obtained as \eqn{\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T}. 
+#' @note From the above list, the resulting covariance function can be obtained as \eqn{\sum_{l=1}^{L} \Sigma_l \phi_l \phi_l^T}. 
 #' @author Debangan Dey, Sudipto Banerjee, Martin Lindquist and Abhirup Datta
 #' @references Dey D., Banerjee S., Lindquist M., and Datta A., Graph-constrained Analysis for Multivariate Functional Data. Available at arXiv.org
 #' @references Zapata, J., Oh, S., and Petersen, A. (2019) Functional Graphical Models for Partially Separable Gaussian Processes. Available at arXiv.org

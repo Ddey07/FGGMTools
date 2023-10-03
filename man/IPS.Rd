@@ -9,7 +9,7 @@ IPS(S, A, eps = 1e-08)
 \arguments{
 \item{S}{The sample covariance matrix (p by p), where p is the number of variables.}
 
-\item{A}{An adjacency matrix corresponding to the underlyning graphical model (p by p). Must come from an undirected graph.}
+\item{A}{An adjacency matrix corresponding to the underlying graphical model (p by p). Must come from an undirected graph.}
 
 \item{eps}{Error tolerance threshold (in likelihood) for the algorithm to converge}
 }
@@ -25,6 +25,7 @@ This code uses slightly modified functions from the testing version of copCS pac
 \examples{
 require(igraph)
 require(mvtnorm)
+require(graph)
 # Generate data y
 p <- 10
 Q <- qr.Q(qr(matrix(rnorm(p^2), p)))

@@ -3,7 +3,7 @@
 #' @description Maximum likelihood estimate of the covariance matrix under the constraint of a Gaussian Graphical Model using Iterative Proportional Scaling algorithm. 
 #'
 #' @param S The sample covariance matrix (p by p), where p is the number of variables. 
-#' @param A An adjacency matrix corresponding to the underlyning graphical model (p by p). Must come from an undirected graph. 
+#' @param A An adjacency matrix corresponding to the underlying graphical model (p by p). Must come from an undirected graph. 
 #' @param eps Error tolerance threshold (in likelihood) for the algorithm to converge
 #' @return \code{IPS} returns the estimated precision matrix under the graphical model. 
 #' @author Debangan Dey, Sudipto Banerjee, Martin Lindquist and Abhirup Datta
