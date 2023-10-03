@@ -1,12 +1,33 @@
 Package: FGGMTools
 Type: Package
-Title: What the package does (short line)
+Title: Graph-constrained Functional Principal Component Analysis for Multivariate Functional Data
 Version: 1.0
 Date: 2023-09-28
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Authors@R: c(
+    person(given = "Debangan",
+           family = "Dey",
+           role = c("aut","cre"),
+           email = "ddey1@alumni.jh.edu",
+           comment = c(ORCID = "0000-0002-2579-5693")),
+    person(given = "Sudipto",
+           family = "Banerjee",
+           role = c("aut"),
+           email = "sudipto@ucla.edu"),
+    person(given = "Martin",
+           family = "Lindquist",
+           role = c("aut"),
+           email = "mlindqui@jhsph.edu"),
+    person(given = "Abhirup",
+           family = "Datta",
+           role = c("ctb"),
+           email = "abhidatta@jhu.edu"))
+Maintainer: Debangan Dey <ddey1@alumni.jh.edu>
+Description: (a) Performs iterative proportional scaling (IPS) to get graph-constrained MLE in Gaussian Graphical Models, (b) Performs graph-constrained functional principal 
+    component analysis for multivariate functional data. The methods are described in 
+    Dey, Banerjee, Lindquist and Datta (2023) <https://arxiv.org/pdf/2209.06294.pdf>. 
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
 Imports: 
     stats,
     methods,
