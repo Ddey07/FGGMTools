@@ -41,7 +41,7 @@ S = cov(y)
 # Fix an adjacency matrix. Here we pick path graph of length p
 A = as.matrix(as_adjacency_matrix(make_tree(p,1,"undirected")))
 # plot the graph
-plot(graph_from_adjacency_matrix(A))
+plot(graph_from_adjacency_matrix(A,mode="undirected"))
 ```
 
 ![](README-example-1.png)<!-- -->
