@@ -7,4 +7,5 @@
 #' @import igraph
 #' @import mvtnorm
 #' @import MASS
+#' @import fdapace
 NULL
