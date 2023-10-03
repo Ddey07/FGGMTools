@@ -1,5 +1,6 @@
 require(igraph)
 require(mvtnorm)
+require(graph)
 # Generate data y
 p <- 10
 Q <- qr.Q(qr(matrix(rnorm(p^2), p)))
