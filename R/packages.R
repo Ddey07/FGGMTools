@@ -2,7 +2,8 @@
 #' @import fgm
 #' @import refund
 #' @importFrom Matrix nearPD
-#' @import gRbase
+#' @importFrom gRbase getCliques
+#' @importClassesFrom graph graphNEL
 #' @importFrom igraph as_adjacency_matrix
 #' @importFrom igraph make_tree
 #' @import mvtnorm
